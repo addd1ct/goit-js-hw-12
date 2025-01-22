@@ -12,14 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadMoreButton.classList.add('is-hidden');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    
     currentQuery = input.value.trim();
 
     if (currentQuery === '') return;
 
     loadMoreButton.classList.add('is-hidden');
-
+    
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalHits = data.totalHits;
 
     renderImages(data.hits);
+
     if (data.hits.length >= 15) {
       loadMoreButton.classList.remove('is-hidden');
     }
@@ -39,11 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollPage();
   });
 
-  loadMoreButton.addEventListener('click', async () => {
-    currentPage += 1;
+  loadMoreButton.addEventListener('click', async function () {
+    currentPage++;
+
     const data = await fetchImages(currentQuery, currentPage);
 
     renderImages(data.hits);
+
     if (data.hits.length >= 15) {
       loadMoreButton.classList.remove('is-hidden');
     }

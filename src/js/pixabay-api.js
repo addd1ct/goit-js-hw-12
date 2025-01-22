@@ -10,6 +10,6 @@ export async function fetchImages(query, page = 1, perPage = 15) {
     return response.data;
   } catch (err) {
     console.err('Error fetching data:', err);
-    throw error;
+    throw err;
   }
 }

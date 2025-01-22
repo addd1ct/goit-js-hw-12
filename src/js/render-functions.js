@@ -1,3 +1,10 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
+let lightbox = null;
+
 export function renderImages(images) {
   const container = document.querySelector('.images-container');
   images.forEach(image => {
