@@ -10,13 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.search-form');
   const input = document.querySelector('.search-input');
 
+  loadMoreButton.classList.add('is-hidden');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     currentQuery = input.value.trim();
 
     if (currentQuery === '') return;
 
-    toggleLoadMoreButton(false);
+    loadMoreButton.classList.add('is-hidden');
 
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
@@ -25,10 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     totalHits = data.totalHits;
 
     renderImages(data.hits);
-    toggleLoadMoreButton(true);
+    if (data.hits.length >= 15) {
+      loadMoreButton.classList.remove('is-hidden');
+    }
 
     if (data.hits.length < 15) {
-      toggleLoadMoreButton(false);
+      loadMoreButton.classList.add('is-hidden');
       showEndMessage();
     }
 
@@ -40,12 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = await fetchImages(currentQuery, currentPage);
 
     renderImages(data.hits);
-    toggleLoadMoreButton(true);
+    if (data.hits.length >= 15) {
+      loadMoreButton.classList.remove('is-hidden');
+    }
 
     if (data.hits.length < 15 || data.hits.length === totalHits) {
-      toggleLoadMoreButton(false);
+      loadMoreButton.classList.add('is-hidden');
       showEndMessage();
     }
+
     scrollPage();
   });
 });
