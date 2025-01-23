@@ -1,10 +1,3 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-
-let lightbox = null;
-
 export function renderImages(images) {
   const container = document.querySelector('.images-container');
   images.forEach(image => {
@@ -24,9 +17,35 @@ export function toggleLoadMoreButton(isVisible) {
   }
 }
 
-export function showEndMessage() {
+export function showNoResultsMessage() {
   const container = document.querySelector('.container');
-  const endMessage = document.createElement('p');
-  endMessage.textContent = "We're sorry, but you've reached the end of search results.";
-  container.appendChild(endMessage);
+  const existingMessage = document.querySelector('.container p');
+
+  if (existingMessage) {
+    existingMessage.textContent = "Sorry, there are no images matching your search query. Please try again.";
+  } else {
+    const newMessage = document.createElement('p');
+    newMessage.classList.add('no-results-message');
+    newMessage.textContent = "Sorry, there are no images matching your search query. Please try again.";
+    container.appendChild(newMessage);
+  }
+}
+
+export function showEndOfResultsMessage() {
+  const container = document.querySelector('.container');
+  const existingMessage = document.querySelector('.container p');
+
+  if (existingMessage) {
+    existingMessage.textContent = "We're sorry, but you've reached the end of search results.";
+  } else {
+    const newMessage = document.createElement('p');
+    newMessage.classList.add('end-of-results-message');
+    newMessage.textContent = "We're sorry, but you've reached the end of search results.";
+    container.appendChild(newMessage);
+  }
+}
+
+export function clearMessages() {
+  const messages = document.querySelectorAll('.container p');
+  messages.forEach(message => message.remove());
 }

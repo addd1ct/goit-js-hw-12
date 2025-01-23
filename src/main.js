@@ -1,5 +1,5 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderImages, toggleLoadMoreButton, showEndMessage } from './js/render-functions.js';
+import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage, clearMessages } from './js/render-functions.js';
 
 let currentPage = 1;
 let currentQuery = '';
@@ -9,57 +9,65 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadMoreButton = document.querySelector('.load-more');
   const form = document.querySelector('.search-form');
   const input = document.querySelector('.search-input');
+  const loader = document.querySelector('.loader');
 
   loadMoreButton.classList.add('is-hidden');
+  loader.style.display = 'none';
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
-    
+
     currentQuery = input.value.trim();
 
     if (currentQuery === '') return;
 
     loadMoreButton.classList.add('is-hidden');
-    
+    loader.style.display = 'block';
+
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
 
-    const data = await fetchImages(currentQuery, currentPage);
-    totalHits = data.totalHits;
+    clearMessages();
 
-    renderImages(data.hits);
+    await fetchAndRenderImages();
 
-    if (data.hits.length >= 15) {
-      loadMoreButton.classList.remove('is-hidden');
-    }
-
-    if (data.hits.length < 15) {
-      loadMoreButton.classList.add('is-hidden');
-      showEndMessage();
-    }
-
-    scrollPage();
+    loader.style.display = 'none';
   });
 
   loadMoreButton.addEventListener('click', async function () {
     currentPage++;
 
-    const data = await fetchImages(currentQuery, currentPage);
+    loader.style.display = 'block';
 
-    renderImages(data.hits);
+    await fetchAndRenderImages();
 
-    if (data.hits.length >= 15) {
-      loadMoreButton.classList.remove('is-hidden');
-    }
-
-    if (data.hits.length < 15 || data.hits.length === totalHits) {
-      loadMoreButton.classList.add('is-hidden');
-      showEndMessage();
-    }
+    loader.style.display = 'none';
 
     scrollPage();
   });
 });
+
+async function fetchAndRenderImages() {
+  try {
+    const data = await fetchImages(currentQuery, currentPage);
+
+    if (data.hits.length === 0) {
+      showNoResultsMessage();
+      toggleLoadMoreButton(false);
+    } else {
+      renderImages(data.hits);
+
+      if (currentPage * 15 >= data.totalHits) {
+        toggleLoadMoreButton(false);
+        showEndOfResultsMessage();
+      } else {
+        toggleLoadMoreButton(true);
+      }
+    }
+  } catch (error) {
+    showEndOfResultsMessage();
+  }
+}
 
 function scrollPage() {
   const imgCard = document.querySelector('.images-container img');
