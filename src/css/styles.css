@@ -21,7 +21,6 @@ body {
   margin: 0;
   padding: 0;
   border: none;
-  outline: none;
 }
 
 .is-hidden {
@@ -42,6 +41,7 @@ body {
   margin-right: 8px;
   padding: 8px 118px 8px 16px;
   box-sizing: border-box;
+  height: 40px;
 }
 
 .search-input:hover {
