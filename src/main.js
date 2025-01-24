@@ -3,6 +3,15 @@ import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResu
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+let lightbox;
+function initializeLightbox() {
+  if (!lightbox) {
+    lightbox = new SimpleLightbox('.images-container a');
+  } else {
+    lightbox.refresh();
+  }
+}
+
 let currentPage = 1;
 let currentQuery = '';
 let totalHits = 0;

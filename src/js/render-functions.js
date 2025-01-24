@@ -1,12 +1,30 @@
 export function renderImages(images) {
   const container = document.querySelector('.images-container');
+
   images.forEach(image => {
+    const imageCard = document.createElement('div');
+    imageCard.classList.add('image-card');
+
     const imgElement = document.createElement('img');
     imgElement.src = image.webformatURL;
     imgElement.alt = image.tags;
-    container.appendChild(imgElement);
+
+    const imageInfo = document.createElement('div');
+    imageInfo.classList.add('image-info');
+    imageInfo.innerHTML = `
+      <p><b>Likes:</b> ${image.likes}</p>
+      <p><b>Views:</b> ${image.views}</p>
+      <p><b>Comments:</b> ${image.comments}</p>
+      <p><b>Downloads:</b> ${image.downloads}</p>
+    `;
+
+    imageCard.appendChild(imgElement);
+    imageCard.appendChild(imageInfo);
+
+    container.appendChild(imageCard);
   });
 }
+
 
 export function toggleLoadMoreButton(isVisible) {
   const loadMoreButton = document.querySelector('.load-more');
