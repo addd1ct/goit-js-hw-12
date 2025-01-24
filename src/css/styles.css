@@ -17,19 +17,36 @@
 @import url('./back-link.css');
 @import url('./footer.css');
 
+
 body {
   margin: 0;
   padding: 0;
-  border: none;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
 }
 
 .is-hidden {
   display: none;
 }
 
-.loader {
-  font-size: 16px;
-  color: #2e2f42;
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
 }
 
 .search-input {
@@ -38,10 +55,11 @@ body {
   border-radius: 4px;
   border: 1px solid #808080;
   line-height: 24px;
-  margin-right: 8px;
-  padding: 8px 118px 8px 16px;
+  padding: 8px 16px;
+  width: 300px;
   box-sizing: border-box;
   height: 40px;
+  margin-right: 8px;
 }
 
 .search-input:hover {
@@ -49,7 +67,8 @@ body {
 }
 
 .search-input:focus {
-  border: 1px solid #4e75ff;
+  border-color: #4e75ff;
+  outline: none;
   color: #2e2f42;
 }
 
@@ -58,15 +77,21 @@ body {
   border: none;
   color: #ffffff;
   border-radius: 8px;
-  padding: 8px 16px 8px 16px;
+  padding: 8px 16px;
   cursor: pointer;
   font-size: 16px;
   height: 40px;
-  box-sizing: border-box;
 }
 
 .search-btn:hover {
   background-color: #6c8cff;
+}
+
+.loader {
+  font-size: 16px;
+  color: #2e2f42;
+  margin-bottom: 32px;
+  display: none;
 }
 
 .load-more {
@@ -74,40 +99,6 @@ body {
   border: none;
   color: #ffffff;
   border-radius: 8px;
-  padding: 8px 16px 8px 16px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.load-more:hover {
-  background-color: #6c8cff;
-}
-
-.images-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-
-.images-container > * {
-  box-sizing: border-box;
-  border: 1px solid #808080;
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.search-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 8px 16px;
+  cursor
 }
