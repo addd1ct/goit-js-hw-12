@@ -1,5 +1,5 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage, clearMessages } from './js/render-functions.js';
+import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage} from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from "izitoast";
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loader = document.querySelector('.loader');
 
   loadMoreButton.classList.add('is-hidden');
-  loader.style.display = 'none';
+  loader.classList.add('is-hidden');
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -35,24 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentQuery === '') return;
 
     loadMoreButton.classList.add('is-hidden');
-    loader.style.display = 'block';
+    loader.classList.add('is-hidden');
 
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
 
     await fetchAndRenderImages();
 
-    loader.style.display = 'none';
+    loader.classList.add('is-hidden');
   });
 
   loadMoreButton.addEventListener('click', async function () {
     currentPage++;
 
-    loader.style.display = 'block';
+    loader.classList.remove('is-hidden');
 
     await fetchAndRenderImages();
 
-    loader.style.display = 'none';
+    loader.classList.add('is-hidden');
 
     scrollPage();
   });
