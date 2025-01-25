@@ -1,29 +1,23 @@
 export function renderImages(images) {
-  const container = document.querySelector('.images-container');
+  const imagesList = document.querySelector('.images-container');
   
-  images.forEach(image => {
-    const imageCard = document.createElement('div');
-    imageCard.classList.add('image-card');
-    
-    const imgElement = document.createElement('img');
-    imgElement.src = image.webformatURL;
-    imgElement.alt = image.tags;
-    
-    const imageInfo = document.createElement('div');
-    imageInfo.classList.add('image-info');
-    
-    imageInfo.innerHTML = `
-      <p><span>Likes:</span> ${image.likes}</p>
-      <p><span>Views:</span> ${image.views}</p>
-      <p><span>Comments:</span> ${image.comments}</p>
-      <p><span>Downloads:</span> ${image.downloads}</p>
-    `;
-    
-    imageCard.appendChild(imgElement);
-    imageCard.appendChild(imageInfo);
-    
-    container.appendChild(imageCard);
-  });
+  const markup = images.map(
+    ({ webformatURL, tags, likes, views, comments, downloads, largeImageURL }) => `
+    <li class="image-card">
+      <a href="${largeImageURL}">
+        <img src="${webformatURL}" alt="${tags}" />
+        <div class="image-info">
+            <p><span>Likes:</span> ${likes}</p>
+            <p><span>Views:</span> ${views}</p>
+            <p><span>Comments:</span> ${comments}</p>
+            <p><span>Downloads:</span> ${downloads}</p>
+        </div>
+      </a>
+    </li>
+    `
+  ).join('');
+
+  imagesList.insertAdjacentHTML('beforeend', markup)
 }
 
 
@@ -38,34 +32,15 @@ export function toggleLoadMoreButton(isVisible) {
 }
 
 export function showNoResultsMessage() {
-  const container = document.querySelector('.container');
-  const existingMessage = document.querySelector('.container p');
-
-  if (existingMessage) {
-    existingMessage.textContent = "Sorry, there are no images matching your search query. Please try again.";
-  } else {
-    const newMessage = document.createElement('p');
-    newMessage.classList.add('no-results-message');
-    newMessage.textContent = "Sorry, there are no images matching your search query. Please try again.";
-    container.appendChild(newMessage);
-  }
+      iziToast.show({
+        title: 'Notice',
+        message: "Sorry, there are no images matching your search query. Please try again.",
+    });
 }
 
 export function showEndOfResultsMessage() {
-  const container = document.querySelector('.container');
-  const existingMessage = document.querySelector('.container p');
-
-  if (existingMessage) {
-    existingMessage.textContent = "We're sorry, but you've reached the end of search results.";
-  } else {
-    const newMessage = document.createElement('p');
-    newMessage.classList.add('end-of-results-message');
-    newMessage.textContent = "We're sorry, but you've reached the end of search results.";
-    container.appendChild(newMessage);
-  }
-}
-
-export function clearMessages() {
-  const messages = document.querySelectorAll('.container p');
-  messages.forEach(message => message.remove());
+    iziToast.show({
+        title: 'Notice',
+        message: "We're sorry, but you've reached the end of search results.",
+    });
 }

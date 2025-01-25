@@ -2,6 +2,8 @@ import { fetchImages } from './js/pixabay-api.js';
 import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage, clearMessages } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
 
 let lightbox;
 function initializeLightbox() {
@@ -38,8 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
 
-    clearMessages();
-
     await fetchAndRenderImages();
 
     loader.style.display = 'none';
@@ -67,7 +67,7 @@ async function fetchAndRenderImages() {
       toggleLoadMoreButton(false);
     } else {
       renderImages(data.hits);
-
+      initializeLightbox();
       if (currentPage * 15 >= data.totalHits) {
         toggleLoadMoreButton(false);
         showEndOfResultsMessage();
@@ -75,7 +75,8 @@ async function fetchAndRenderImages() {
         toggleLoadMoreButton(true);
       }
     }
-  } catch (error) {
+  } catch (err) {
+    console.log(err)
     showEndOfResultsMessage();
   }
 }
