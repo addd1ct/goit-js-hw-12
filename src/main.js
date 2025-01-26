@@ -1,5 +1,5 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage} from './js/render-functions.js';
+import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from "izitoast";
@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentQuery === '') return;
 
     loadMoreButton.classList.add('is-hidden');
-    loader.classList.add('is-hidden');
+    loader.classList.remove('is-hidden');
 
     currentPage = 1;
     document.querySelector('.images-container').innerHTML = '';
 
-    await fetchAndRenderImages();
+    await fetchAndRenderImages(loader, loadMoreButton);
 
     loader.classList.add('is-hidden');
   });
@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     await fetchAndRenderImages();
 
     loader.classList.add('is-hidden');
-
     scrollPage();
   });
 });
@@ -76,8 +75,10 @@ async function fetchAndRenderImages() {
       }
     }
   } catch (err) {
-    console.log(err)
+    console.error(err);
     showEndOfResultsMessage();
+  } finally {
+    loader.classList.add('is-hidden');
   }
 }
 
