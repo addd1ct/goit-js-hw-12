@@ -38,8 +38,9 @@ export function showNoResultsMessage() {
       iziToast.show({
         title: 'Notice',
         message: "Sorry, there are no images matching your search query. Please try again.",
-        backgroundColor: 'pink',
-        textColor: 'white',
+        backgroundColor: '#ffafcc',
+        titleColor: '#ffc8dd',
+        messageColor: '#fae0e4', 
     });
 }
 
