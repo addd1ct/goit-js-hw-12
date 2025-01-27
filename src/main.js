@@ -2,8 +2,6 @@ import { fetchImages } from './js/pixabay-api.js';
 import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
 
 let lightbox;
 function initializeLightbox() {
@@ -17,12 +15,12 @@ function initializeLightbox() {
 let currentPage = 1;
 let currentQuery = '';
 let totalHits = 0;
+const loader = document.querySelector('.loader');
 
 document.addEventListener('DOMContentLoaded', () => {
   const loadMoreButton = document.querySelector('.load-more');
   const form = document.querySelector('.search-form');
   const input = document.querySelector('.search-input');
-  const loader = document.querySelector('.loader');
 
   loadMoreButton.classList.add('is-hidden');
   loader.classList.add('is-hidden');
