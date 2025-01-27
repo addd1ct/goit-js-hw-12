@@ -1,9 +1,7 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderImages, toggleLoadMoreButton } from './js/render-functions.js';
+import { renderImages, toggleLoadMoreButton, showNoResultsMessage, showEndOfResultsMessage } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
 
 let lightbox;
 function initializeLightbox() {
@@ -91,18 +89,4 @@ function scrollPage() {
       behavior: 'smooth',
     });
   }
-}
-
-function showNoResultsMessage() {
-      iziToast.show({
-        title: 'Notice',
-        message: "Sorry, there are no images matching your search query. Please try again.",
-    });
-}
-
-function showEndOfResultsMessage() {
-    iziToast.show({
-        title: 'Notice',
-        message: "We're sorry, but you've reached the end of search results.",
-    });
 }
