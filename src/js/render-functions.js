@@ -38,9 +38,9 @@ export function showNoResultsMessage() {
       iziToast.show({
         title: 'Notice',
         message: "Sorry, there are no images matching your search query. Please try again.",
-        backgroundColor: '#ffafcc',
-        titleColor: '#ffc8dd',
-        messageColor: '#fae0e4', 
+        backgroundColor: '#ff70bf',
+        titleColor: '#ffa8d9',
+        messageColor: '#ffcae9', 
     });
 }
 
@@ -48,8 +48,8 @@ export function showEndOfResultsMessage() {
     iziToast.show({
         title: 'Notice',
         message: "We're sorry, but you've reached the end of search results.",
-        backgroundColor: '#ffafcc',
-        titleColor: '#ffc8dd',
-        messageColor: '#fae0e4', 
+        backgroundColor: '#ff70bf',
+        titleColor: '#ffa8d9',
+        messageColor: '#ffcae9', 
     });
 }
